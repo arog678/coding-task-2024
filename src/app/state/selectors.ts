@@ -19,3 +19,9 @@ export const selectActiveContact = createSelector(
     selectActiveContactId,
     (list, id) => list.find( contact => contact.id === id)
 )
+
+// Q3
+export const selectErrorMsg = createSelector(
+    selectContactsState,
+    state => state.errorMsg
+)

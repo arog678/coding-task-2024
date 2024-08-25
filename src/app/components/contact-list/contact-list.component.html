@@ -10,7 +10,12 @@
     [contact]="activeContact$ | async"
 ></app-contact-detail> -->
 
-<h3 *ngIf="!(contactList$ | async)?.length; else notLoading">LOADING</h3>
+<!-- BELLOW IS COMMENTED TO WORK ON Q3 -->
+<div *ngIf="(errorMsg$ | async); else noError">ERROR: {{errorMsg$ | async}}</div>
+
+<ng-template #noError>
+  <h3 *ngIf="!(contactList$ | async)?.length; else notLoading" >LOADING</h3>
+</ng-template>
 
 <ng-template #notLoading>
   <div *ngFor="let contact of contactList$ | async" class="contact-list-item">

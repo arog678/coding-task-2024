@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Contact } from 'src/app/models/contact.model';
 import { ContactService } from 'src/app/services/contact.service';
-import { State, selectActiveContact, selectContactList } from '../../state';
+import { State, selectActiveContact, selectContactList, selectErrorMsg } from '../../state';
 import * as actions from '../../state/actions';
 
 
@@ -16,6 +16,8 @@ export class ContactListComponent {
 
   contactList$: Observable<Contact[]>;
   activeContact$: Observable<Contact | undefined>;
+  // Q3
+  errorMsg$: Observable<string | null>;
 
   constructor(
     private contactService : ContactService,
@@ -23,6 +25,8 @@ export class ContactListComponent {
   ){
     this.contactList$ = this.store.select(selectContactList)
     this.activeContact$ = this.store.select(selectActiveContact);
+    // Q3
+    this.errorMsg$ = this.store.select(selectErrorMsg);
   }
 
   viewContactClicked(contactId : number ){

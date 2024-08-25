@@ -19,7 +19,9 @@ export class ContactEffects {
         ofType(actions.appStarted),
         concatMap(() => 
             this.contactService.getContactList$().pipe(
-                map(contactList => actions.contactListReturned({contactList}))
+                map(contactList => actions.contactListReturned({contactList})),
+                // Q3
+                catchError(err => of(actions.contactListError({errorMsg: err.message})))
             )
         )
     ))

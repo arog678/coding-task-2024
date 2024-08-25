@@ -68,5 +68,10 @@ In our main code base, you would expect to find this architecture replicated wit
         )
     ))
     ...
+
+    You can turn on random error in the "contact.service.ts" and set "showErrors" to true.
+    This will show it all working together.
+    Contact me if you have any issues with it.
+    Look for //Q3 to see where changes for error handling have been made.
     
 4. ./Angular Interface.pdf

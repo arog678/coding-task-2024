@@ -38,3 +38,8 @@ export const contactSavedSuccess = createAction(
     props<{contact: Contact}>()
 );
 
+// Q3
+export const contactListError = createAction(
+    '[BACKEND SERVICE] Contact List Error',
+    props<{errorMsg: string}>()
+)

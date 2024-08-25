@@ -6,11 +6,15 @@ import * as _ from 'lodash';
 export interface State {
     contactList : Contact[];
     selectedContactId : number | null;
+    // Q3
+    errorMsg: string | null;
 }
 
 const initialState: State = {
     contactList : [],
-    selectedContactId : null
+    selectedContactId : null,
+    // Q3
+    errorMsg: null,
 }
 
 //#region Helper Functions
@@ -46,6 +50,12 @@ export const reducer = createReducer(
     on(actions.editContactClicked, (state, action) => ({
         ...state,
         selectedContactId : action.contact.id
+    })),
+
+    // Q3
+    on(actions.contactListError, (state, action) => ({
+        ...state,
+        errorMsg: action.errorMsg
     }))
 
 )

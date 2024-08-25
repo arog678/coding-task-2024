@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, delay, of } from 'rxjs';
+import { Observable, delay, of, throwError } from 'rxjs';
 import { Contact } from '../models/contact.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactEditDialogComponent } from '../dialogs/contact-edit-dialog/contact-edit-dialog.component';
@@ -36,9 +36,13 @@ export class ContactService {
   //#region mock back end calls
 
   getContactList$() : Observable<Contact[]> {
-
-    return of(this.mockList).pipe(
-      delay(2000)
+  
+    // Q3
+    const showErrors = false;
+    return showErrors && _.random(0,10) > 5 
+      ? throwError(() => {return new Error('FAILED TO GET LIST')} )
+      : of(this.mockList).pipe(
+       delay(2000),
     )
 
   }
