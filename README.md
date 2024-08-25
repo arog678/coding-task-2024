@@ -27,7 +27,7 @@ In our main code base, you would expect to find this architecture replicated wit
 # Answers
 
 1. The code will look to see if the list is empty.
-2. Add contact works however adding multiple will overwrite the last item. This makes sense as the system is designed to pull from a server (mockList) and to make the task is to send requests to the system. Adding in a system to mock update the BE is beyond scope.
+2. Can add as many objects as you want however there is no validation on inputs.
 3. 
     When sending a request it is important we properly handle the reponse. We may want to display info in the FE to keep the users aware of whats happening and prehaps fallbacks we can use if the data is not required. When an error is given how is best to handle it?
 
