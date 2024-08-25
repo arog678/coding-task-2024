@@ -26,7 +26,47 @@ In our main code base, you would expect to find this architecture replicated wit
 
 # Answers
 
-1. //Optionally provide any notes relating to question 1 here.
-2. //Optionally provide any notes relating to question 2 here.
-3. //Provide your answer to question 3 here.
-4. //Provide your link or location of your file within the repo here.
+1. The code will look to see if the list is empty.
+2. Add contact works however adding multiple will overwrite the last item. This makes sense as the system is designed to pull from a server (mockList) and to make the task is to send requests to the system. Adding in a system to mock update the BE is beyond scope.
+3. 
+    When sending a request it is important we properly handle the reponse. We may want to display info in the FE to keep the users aware of whats happening and prehaps fallbacks we can use if the data is not required. When an error is given how is best to handle it?
+
+    Sometimes data may not be critical to first page load, We may want to have those calls retry. It may be acceptable to load these asynconously. Certain data you will want to laod in right away. In these cases a message to the users that there is an issue in the fe may be required.
+
+    If an error is given it may be critical and the page must be reloaded. In other cases it may be ignored if not critical to functionality.
+
+    Here is an example of how it would be handled by the app:
+
+    action.ts:
+    ...
+    //Setup the action for error here
+    export const contactListError = createAction(
+        '[BACKEND SERVICE] Contact List Error',
+        props<{errorMessage: string}>()
+    );
+    ...
+
+    reducer.ts:
+    ...
+    //when action dispatched the state of error message is set here
+    on(actions.contactListError, (state, action) => ({
+        ...state,
+        errorMessage : action.errorMessage
+    }))
+    ...
+
+    effects.ts
+    ...
+    retrieveContactList$ = createEffect(()=> this.actions$.pipe(
+        ofType(actions.appStarted),
+        concatMap(() => 
+            this.contactService.getContactList$().pipe(
+                map(contactList => actions.contactListReturned({contactList})),
+                //Errors caught here will dispatch a contactListError action
+                catchError(error => of(actions.contactListError({ errorMessage: error.message })))
+            )
+        )
+    ))
+    ...
+    
+4. ./Angular Interface.pdf

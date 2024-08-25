@@ -82,4 +82,16 @@ export class ContactService {
 
   }
 
+  createContactDialog$() : Observable<Contact> {
+    
+    const dialogRef = this.dialog.open(ContactEditDialogComponent, {
+      data: {
+        contact: null
+      }
+    })
+
+    return dialogRef.afterClosed();
+  }
+
+
 }
