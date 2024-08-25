@@ -20,7 +20,7 @@ function upsertContactList(contactList: Contact[], updatedContact: Contact): Con
     if (index < 0) {
       return [...contactList, updatedContact];
     }
-   
+
     return [...contactList.slice(0, index), updatedContact, ...contactList.slice(index + 1)];
 }
 
